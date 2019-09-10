@@ -1,12 +1,8 @@
 package br.com.unipac.cpa.web.resources;
 
-
 import br.com.unipac.cpa.constants.Constants;
-import br.com.unipac.cpa.web.dto.request.CourseRequest;
 import br.com.unipac.cpa.web.dto.request.QuestionRequest;
-import br.com.unipac.cpa.web.dto.response.CourseResponse;
 import br.com.unipac.cpa.web.dto.response.QuestionResponse;
-import br.com.unipac.cpa.web.dto.response.QuestionRequest;
 import br.com.unipac.cpa.web.support.QuestionSupport;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
@@ -16,30 +12,28 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.codahale.metrics.annotation.Timed;
 
 import javax.validation.Valid;
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/vl/questions")
-
+@RequestMapping("/v1/questions")
 public class QuestionResources {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(QuestionResources.class);
 
     @Autowired
-    private QuestionSupport conversionSuport;
+    private QuestionSupport questionSupport;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Timed
-    public ResponseEntity<List<QuestionResponse>> list(){
-        List<QuestionResponse> questionRequests = conversionSuport.list();
+    public ResponseEntity<List<QuestionResponse>> list() {
+        List<QuestionResponse> questionRequest = questionSupport.list();
 
-        if(questionRequests != null) {
-            logger.info(Constants.TOTAL + questionRequests.size());
-            return ResponseEntity.ok(questionRequests);
+        if(questionRequest != null) {
+            logger.info(Constants.TOTAL + questionRequest.size());
+            return ResponseEntity.ok(questionRequest);
         }else {
             return ResponseEntity.noContent().build();
         }
@@ -49,11 +43,12 @@ public class QuestionResources {
     @ResponseBody
     @Timed
     public ResponseEntity<QuestionResponse> get(@PathVariable("id") Long id) {
-        QuestionResponse result = conversionSuport.convertToFindById(id);
+        QuestionResponse questionResponse = questionSupport.convertToFindById(id);
 
-        if (result != null) {
-            logger.info(Constants.TOTAL + result.toString());
-            return ResponseEntity.ok(result);
+        if (questionResponse != null) {
+            //TO DO - EDITAR CONSTANTS
+            logger.info(Constants.TOTAL + questionResponse.toString());
+            return ResponseEntity.ok(questionResponse);
         } else {
             return ResponseEntity.noContent().build();
         }
@@ -64,11 +59,11 @@ public class QuestionResources {
     @Timed
     @CacheEvict(value = Constants.SEGMENTS_IN_CACHE, allEntries = true)
     public ResponseEntity<QuestionResponse> add(@Valid @RequestBody QuestionRequest questionRequest) {
-        QuestionResponse result = conversionSuport.convertToCreate(questionRequest);
+        QuestionResponse questionResponse = questionSupport.convertToCreate(questionRequest);
 
-        if (result != null) {
-            logger.info(Constants.TOTAL + result.toString());
-            return ResponseEntity.ok(result);
+        if (questionResponse != null) {
+            logger.info(Constants.TOTAL + questionResponse.toString());
+            return ResponseEntity.ok(questionResponse);
         } else {
             return ResponseEntity.noContent().build();
         }
@@ -80,7 +75,7 @@ public class QuestionResources {
     @CacheEvict(value = Constants.SEGMENTS_IN_CACHE, allEntries = true)
     public ResponseEntity<QuestionResponse> change(@PathVariable("id") Long id,
                                                  @RequestBody QuestionRequest questionRequest) {
-        QuestionResponse result = conversionSuport.convertToChange(id, questionRequest);
+        QuestionResponse result = questionSupport.convertToChange(id, questionRequest);
         if (result != null) {
             logger.info(Constants.TOTAL + result.toString());
             return ResponseEntity.ok(result);
@@ -94,7 +89,7 @@ public class QuestionResources {
     @Timed
     @CacheEvict(value = Constants.SEGMENTS_IN_CACHE, allEntries = true)
     public ResponseEntity<?> remove(@PathVariable("id") Long id) {
-        boolean result = conversionSuport.remove(id);
+        boolean result = questionSupport.remove(id);
         if (result) {
             return ResponseEntity.ok(Constants.DADOS_DELETADOS);
         } else {
@@ -106,7 +101,7 @@ public class QuestionResources {
     @ResponseBody
     @Timed
     public ResponseEntity<QuestionResponse> findByName(@RequestParam(value="name", required=false) String name) {
-        QuestionResponse result = conversionSuport.convertToFindByName(name);
+        QuestionResponse result = questionSupport.convertToFindByName (name);
 
         if (result != null) {
             logger.info(Constants.TOTAL + result.toString());
@@ -115,5 +110,5 @@ public class QuestionResources {
             return ResponseEntity.noContent().build();
         }
     }
-}
 
+}
