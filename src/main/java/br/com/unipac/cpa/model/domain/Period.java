@@ -31,9 +31,14 @@ import javax.validation.constraints.NotNull;
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Professor professor;
 
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
 
 
     public void update(Period period){

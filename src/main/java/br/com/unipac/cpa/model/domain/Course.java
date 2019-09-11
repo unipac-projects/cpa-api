@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Table(name = "course")
 @EqualsAndHashCode(callSuper = true)
@@ -36,11 +38,15 @@ public class Course extends AudityEntity {
 	@Setter
 	private Company company;
 
-	@OneToMany
-	@JoinColumn(name = "period_id",referencedColumnName = "id")
+	@OneToMany(mappedBy = "id")
 	@Getter
 	@Setter
-	private Period period;
+	private List<Period> periods;
+
+	@OneToMany(mappedBy = "id")
+	@Getter
+	@Setter
+	private List<Evaluation> evaluation;
 
 	public void update(Course course) {
 		this.name = course.getName();
