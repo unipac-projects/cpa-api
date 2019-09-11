@@ -34,6 +34,8 @@ import javax.validation.constraints.NotNull;
     @JoinColumn(name = "client_id")
     private Professor professor;
 
+
+
     public void update(Period period){
         this.name = period.getName();
         this.description = period.getDescription();

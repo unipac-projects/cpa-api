@@ -6,7 +6,7 @@ import br.com.unipac.cpa.web.dto.response.DisciplineResponse;
 import br.com.unipac.cpa.web.dto.response.QuestionResponse;
 import org.springframework.core.convert.converter.Converter;
 
-public class QuestionResponseConverter implements Converter<Question, QuestionResponse {
+public class QuestionResponseConverter implements Converter<Question, QuestionResponse> {
     public QuestionResponse convert(Question question) {
         QuestionResponse questionResponse =  new QuestionResponse();
         questionResponse.setTitle(question.getTitle());
