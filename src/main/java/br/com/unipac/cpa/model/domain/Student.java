@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -41,12 +39,16 @@ import javax.validation.constraints.NotNull;
 	@JoinColumn(name = "company_id")
 	private Company company;
 
+	@ManyToMany(mappedBy = "student_discipline")
+	private List<Discipline>disciplines;
+
 	public void update(Student student) {
 		this.name = student.getName();
 		this.email = student.getEmail();
 		this.mobile = student.getMobile();
 		this.register = student.getRegister();
 		this.company = student.getCompany();
+		this.disciplines = student.getDisciplines();
 	}
 
 }
