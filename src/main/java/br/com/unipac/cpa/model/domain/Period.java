@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
 
     @Getter
@@ -41,9 +41,11 @@ import javax.validation.constraints.NotNull;
     private Course course;
 
 
+
     public void update(Period period){
         this.name = period.getName();
         this.description = period.getDescription();
         this.professor = period.getProfessor();
+        this.course = period.getCourse();
     }
 }

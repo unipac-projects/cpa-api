@@ -109,5 +109,6 @@ public class Company extends AudityEntity {
 		this.socialId = company.getSocialId();
 		this.nationality = company.getNationality();
 		this.local = company.getLocal();
+		this.courses = company.getCourses();
 	}
 }

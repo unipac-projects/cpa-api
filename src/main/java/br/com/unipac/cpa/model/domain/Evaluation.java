@@ -45,5 +45,6 @@ public class Evaluation extends AudityEntity {
         this.name = evaluation.getName();
         this.description = evaluation.getDescription();
         this.date = evaluation.getDate();
+        this.course = evaluation.getCourse();
     }
 }

@@ -51,6 +51,8 @@ public class Course extends AudityEntity {
 	public void update(Course course) {
 		this.name = course.getName();
 		this.company = course.getCompany();
+		this.periods = course.getPeriods();
+		this.evaluation = course.getEvaluation();
 	}
 
 }
