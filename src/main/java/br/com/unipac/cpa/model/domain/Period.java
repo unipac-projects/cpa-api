@@ -2,11 +2,9 @@ package br.com.unipac.cpa.model.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "period")
@@ -31,12 +29,27 @@ import javax.validation.constraints.NotNull;
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
+
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
+
+    @Getter
+    @Setter
+    @OneToMany(mappedBy = "id")
+    private List<Discipline> disciplines;
+
+
 
     public void update(Period period){
         this.name = period.getName();
         this.description = period.getDescription();
         this.professor = period.getProfessor();
+        this.course = period.getCourse();
+        this.disciplines = period.getDisciplines();
     }
 }

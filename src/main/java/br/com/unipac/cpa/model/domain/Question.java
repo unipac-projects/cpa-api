@@ -24,7 +24,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "question")
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, of = {"title","description", "evaluation", "scala_likert_id"})
+@ToString(callSuper = true, of = {"title", "description", "evaluation", "scala_likert_id"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,12 +36,17 @@ public class Question extends AudityEntity {
     @Getter
     @Setter
     private String title;
+
     @Getter
     @Setter
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "evaluation_id", referencedColumnName = "id")
     @Getter
     @Setter
-    private String evaluation;
+    private Evaluation evaluation;
+
     @Getter
     @Setter
     @JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id", scope = Company.class)
@@ -49,7 +54,7 @@ public class Question extends AudityEntity {
     @JoinColumn(name = "scala_likert_id")
     private Company scala_likert;
 
-    public void  update(Question question){
+    public void update(Question question) {
         this.description = question.getDescription();
         this.evaluation = question.getEvaluation();
         this.scala_likert = question.getScala_likert();
