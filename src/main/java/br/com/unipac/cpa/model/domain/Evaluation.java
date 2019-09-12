@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "evaluation")
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, of = {"name", "description", "date"})
+@ToString(callSuper = true, of = {"name", "description", "date","course","questions"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

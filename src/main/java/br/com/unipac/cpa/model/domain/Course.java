@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "course")
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, of = { "name", "code" })
+@ToString(callSuper = true, of = { "name", "code","company","periods","evaluation" })
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

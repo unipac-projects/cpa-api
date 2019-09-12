@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "student")
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, of = {"name", "email", "register", "mobile", "company"})
+@ToString(callSuper = true, of = {"name", "email", "register", "mobile", "company","disciplines"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
