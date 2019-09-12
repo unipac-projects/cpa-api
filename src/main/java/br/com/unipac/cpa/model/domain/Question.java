@@ -42,7 +42,7 @@ public class Question extends AudityEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "evaluation_id",referencedColumnName = "id")
+    @JoinColumn(name = "evaluation_id", referencedColumnName = "id")
     @Getter
     @Setter
     private Evaluation evaluation;

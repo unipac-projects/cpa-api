@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "evaluation")
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, of = { "name", "description", "date" })
+@ToString(callSuper = true, of = {"name", "description", "date"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public class Evaluation extends AudityEntity {
     @Getter
     @Setter
     private String description;
-    @DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Getter
     @Setter
     private Date date;
