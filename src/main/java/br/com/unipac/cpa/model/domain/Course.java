@@ -1,9 +1,6 @@
 package br.com.unipac.cpa.model.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -16,6 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Table(name = "course")
@@ -34,14 +33,26 @@ public class Course extends AudityEntity {
 	private String name;
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id", scope = Company.class)
 	@ManyToOne
-	@JoinColumn(name = "company_id")
+	@JoinColumn(name = "company_id",referencedColumnName = "id")
 	@Getter
 	@Setter
 	private Company company;
 
+	@OneToMany(mappedBy = "id")
+	@Getter
+	@Setter
+	private List<Period> periods;
+
+	@OneToMany(mappedBy = "id")
+	@Getter
+	@Setter
+	private List<Evaluation> evaluation;
+
 	public void update(Course course) {
 		this.name = course.getName();
 		this.company = course.getCompany();
+		this.periods = course.getPeriods();
+		this.evaluation = course.getEvaluation();
 	}
 
 }

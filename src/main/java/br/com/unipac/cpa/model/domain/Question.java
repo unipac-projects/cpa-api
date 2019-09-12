@@ -1,5 +1,7 @@
 package br.com.unipac.cpa.model.domain;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,40 +20,44 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Data
 @Entity
-@Table(name = "professor")
+@Table(name = "question")
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, of = {"name", "email", "mobile", "company"})
+@ToString(callSuper = true, of = {"title", "description", "evaluation", "scala_likert_id"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Professor extends AudityEntity {
+public class Question extends AudityEntity {
 
-    private static final long serialVersionUID = 225176755550680077L;
+    private static final long serialVersionUID = 225176755550681077L;
 
     @NotNull
     @Getter
     @Setter
-    private String name;
+    private String title;
+
     @Getter
     @Setter
-    private String email;
+    private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "evaluation_id", referencedColumnName = "id")
     @Getter
     @Setter
-    private String mobile;
+    private Evaluation evaluation;
+
     @Getter
     @Setter
     @JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id", scope = Company.class)
     @ManyToOne
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
-    private Company company;
+    @JoinColumn(name = "scala_likert_id")
+    private Company scala_likert;
 
-    public void update(Professor professor) {
-        this.name = professor.getName();
-        this.email = professor.getEmail();
-        this.mobile = professor.getMobile();
-        this.company = professor.getCompany();
+    public void update(Question question) {
+        this.description = question.getDescription();
+        this.evaluation = question.getEvaluation();
+        this.scala_likert = question.getScala_likert();
     }
 
 }
